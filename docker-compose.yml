@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+    db:
+        image: mysql:8.0
+        environment:
+            MYSQL_DATABASE: awkaf
+            MYSQL_USER: anass
+            MYSQL_PASSWORD: anass
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "3307:3306"
+        command: --bind-address=0.0.0.0
+        volumes:
+            - db_data:/var/lib/mysql
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    django:
+        build: .
+        ports:
+            - "9010:8080"
+        depends_on:
+            - db
+        environment:
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_NAME: awkaf
+            DB_USER: anass
+            DB_PASSWORD: anass
+
+volumes:
+    db_data:

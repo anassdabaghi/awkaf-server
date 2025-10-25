@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Your Email</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <!-- Main Container -->
+        <table width="100%" style="max-width: 600px; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); overflow: hidden;" cellpadding="0" cellspacing="0">
+          
+          <!-- Header with Gradient -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #035116 0%, #056b1f 100%); padding: 40px 30px; text-align: center;">
+              <div style="background: rgba(255, 255, 255, 0.2); width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 40px;">✉️</span>
+              </div>
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">Welcome Aboard!</h1>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="padding: 40px 30px;">
+              <p style="margin: 0 0 20px; color: #333; font-size: 18px; font-weight: 600;">
+                Hello there! 👋
+              </p>
+              
+              <p style="margin: 0 0 20px; color: #666; font-size: 16px; line-height: 1.6;">
+                Thank you for signing up! We're excited to have you on board. To get started, please verify your email address by clicking the button below:
+              </p>
+
+              <!-- Button -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                <tr>
+                  <td align="center">
+                    <a href="{{ verify_link }}" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #035116 0%, #056b1f 100%); color: #ffffff; text-decoration: none; border-radius: 50px; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(3, 81, 22, 0.3);">
+                      Verify My Email
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Benefits Section -->
+              <div style="background: #f8f9fa; padding: 25px; margin: 30px 0; border-radius: 12px;">
+                <p style="margin: 0 0 15px; color: #333; font-size: 16px; font-weight: 600;">
+                  What's next?
+                </p>
+                <ul style="margin: 0; padding: 0 0 0 20px; color: #666; font-size: 14px; line-height: 1.8;">
+                  <li>Complete your profile</li>
+                  <li>Explore our features</li>
+                  <li>Connect with the community</li>
+                </ul>
+              </div>
+
+              <!-- Security Notice -->
+              <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 8px;">
+                <p style="margin: 0; color: #856404; font-size: 13px; line-height: 1.6;">
+                  <strong>Security Tip:</strong> If you didn't create this account, please ignore this email. Your security is our priority.
+                </p>
+              </div>
+
+              <!-- Link Alternative -->
+              <p style="margin: 20px 0 0; color: #999; font-size: 13px; line-height: 1.6;">
+                If the button doesn't work, copy and paste this link into your browser:
+              </p>
+              <p style="margin: 10px 0 0; color: #035116; font-size: 12px; word-break: break-all; background: #f8f9fa; padding: 12px; border-radius: 6px;">
+                {{ verify_link }}
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #e9ecef;">
+              <p style="margin: 0 0 10px; color: #666; font-size: 14px;">
+                Need help? Contact our support team
+              </p>
+              <p style="margin: 0; color: #999; font-size: 12px;">
+                © 2025 Your Platform. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

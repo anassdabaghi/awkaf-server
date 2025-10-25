@@ -1,0 +1,3 @@
+ALTER USER 'anass'@'%' IDENTIFIED BY 'anass';
+GRANT ALL PRIVILEGES ON awkaf.* TO 'anass'@'%';
+FLUSH PRIVILEGES;
