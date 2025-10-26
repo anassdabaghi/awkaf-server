@@ -58,7 +58,7 @@ class JWTCookieMiddleware(MiddlewareMixin):
                 max_age=3600,  # 1 heure
                 httponly=True,  # CRITICAL: Empêche l'accès JavaScript
                 secure=True,    # HTTPS seulement
-                samesite='Lax', # Protection CSRF
+                samesite='None', # Protection CSRF
                 path='/',
                 domain=None     # Limite aux domaines autorisés
             )
@@ -78,7 +78,7 @@ class JWTCookieMiddleware(MiddlewareMixin):
                 max_age=604800,  # 7 jours
                 httponly=True,   # CRITICAL: Empêche l'accès JavaScript
                 secure=True,     # HTTPS seulement
-                samesite='Lax',  # Protection CSRF
+                samesite='None',  # Protection CSRF
                 path='/',
                 domain=None      # Limite aux domaines autorisés
             )

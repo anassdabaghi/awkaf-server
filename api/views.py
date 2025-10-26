@@ -193,18 +193,18 @@ class UserVerifyOTP(APIView):
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=False,         # Set to False only in local dev (True in production with HTTPS)
-            samesite="Lax",     # Allows cross-site requests (for frontend/backend on different domains)
-            max_age=5 * 60       # Match your access token lifetime (in seconds)
+            secure=True,         # Set to False only in local dev (True in production with HTTPS)
+            samesite="None",     # Allows cross-site requests (for frontend/backend on different domains)
+            max_age=5 * 60 * 3600       # Match your access token lifetime (in seconds)
         )
 
         response.set_cookie(
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=False,
-            samesite="Lax",
-            max_age=24 * 60 * 60  # 1 day
+            secure=True,
+            samesite="None",
+            max_age=24 * 60 * 60 * 3600  # 1 day
         )
 
         return response
@@ -301,16 +301,16 @@ class AdminVerifyOTP(APIView):
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=False,  # only secure in production
-            samesite="Lax",
-            max_age=60 * 5  # 5 minutes
+            secure=True,  # only secure in production
+            samesite="None",
+            max_age=60 * 5 * 3600  # 5 hours
         )
         response.set_cookie(
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=False,
-            samesite="Lax",
+            secure=True,
+            samesite="None",
             max_age=60 * 60 * 24 * 7  # 7 days
         )
 
@@ -1631,8 +1631,8 @@ class CookieTokenRefreshView(TokenRefreshView):
             key="access_token",
             value=data["access"],
             httponly=True,
-            secure=False,  # True in production with HTTPS
-            samesite="Lax",
-            max_age=15 * 60,  # match access token lifetime
+            secure=True,  # True in production with HTTPS
+            samesite="None",
+            max_age=15 * 60 * 3600,  # match access token lifetime
         )
         return response
