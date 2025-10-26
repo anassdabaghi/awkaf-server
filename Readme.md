@@ -1,6 +1,6 @@
 Étapes d’installation du projet Awkaf
 1️1 Installer les outils nécessaires
-
+anass
 Installe XAMPP Control Panel
 
 Télécharge et installe MariaDB
