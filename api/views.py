@@ -144,10 +144,37 @@ class UserLoginRequestOTP(APIView):
         user = authenticate(username=username, password=password)
         if not user:
             return Response({"error": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
-
         # Send OTP email
-        send_otp_email_async(user)
-        return Response({"message": "OTP sent to your email. Enter OTP to proceed."})
+        # if not user.is_active:
+        #     send_otp_email(user)  # Send OTP email
+        #     return Response({"message": "OTP sent to your email. Enter OTP to proceed."})
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
+        response = Response({"message": "Authentification successful." ,
+                            "access": access_token,
+                            "refresh": refresh_token
+                            }, status=status.HTTP_200_OK)
+
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            secure=False,         # Set to False only in local dev (True in production with HTTPS)
+            samesite="Lax",     # Allows cross-site requests (for frontend/backend on different domains)
+            max_age=5 * 60       # Match your access token lifetime (in seconds)
+        )
+
+        response.set_cookie(
+            key="refresh_token",
+            value=refresh_token,
+            httponly=True,
+            secure=False,
+            samesite="Lax",
+            max_age=24 * 60 * 60  # 1 day
+        )
+
+        return response
 
 class UserVerifyOTP(APIView):
     permission_classes = [AllowAny]
@@ -186,25 +213,28 @@ class UserVerifyOTP(APIView):
         refresh_token = str(refresh)
 
         # ✅ Build response
-        response = Response({"message": "OTP verified successfully"}, status=status.HTTP_200_OK)
+        response = Response({"message": "OTP verified successfully",
+                            "access": access_token,
+                            "refresh": refresh_token
+                            }, status=status.HTTP_200_OK)
 
         # ✅ Store tokens in secure HTTP-only cookies
         response.set_cookie(
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=True,         # Set to False only in local dev (True in production with HTTPS)
-            samesite="None",     # Allows cross-site requests (for frontend/backend on different domains)
-            max_age=5 * 60 * 3600       # Match your access token lifetime (in seconds)
+            secure=False,         # Set to False only in local dev (True in production with HTTPS)
+            samesite="Lax",     # Allows cross-site requests (for frontend/backend on different domains)
+            max_age=5 * 60       # Match your access token lifetime (in seconds)
         )
 
         response.set_cookie(
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=True,
-            samesite="None",
-            max_age=24 * 60 * 60 * 3600  # 1 day
+            secure=False,
+            samesite="Lax",
+            max_age=24 * 60 * 60  # 1 day
         )
 
         return response
@@ -301,16 +331,16 @@ class AdminVerifyOTP(APIView):
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=True,  # only secure in production
-            samesite="None",
-            max_age=60 * 5 * 3600  # 5 hours
+            secure=False,  # only secure in production
+            samesite="Lax",
+            max_age=60 * 5  # 5 minutes
         )
         response.set_cookie(
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            secure=True,
-            samesite="None",
+            secure=False,
+            samesite="Lax",
             max_age=60 * 60 * 24 * 7  # 7 days
         )
 
@@ -669,7 +699,8 @@ class RequestPasswordResetView(APIView):
 
             return Response({"message": "Password reset email sent!"})
 
-        except User.DoesNotExist:
+        except User.DoesNotExist as error:
+            print(f"❌ No user found with email: {email} - {error}")
             return Response({"error": "لا يوجد مستخدم بهذا البريد الإلكتروني"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -1631,8 +1662,8 @@ class CookieTokenRefreshView(TokenRefreshView):
             key="access_token",
             value=data["access"],
             httponly=True,
-            secure=True,  # True in production with HTTPS
-            samesite="None",
-            max_age=15 * 60 * 3600,  # match access token lifetime
+            secure=False,  # True in production with HTTPS
+            samesite="Lax",
+            max_age=15 * 60,  # match access token lifetime
         )
         return response
