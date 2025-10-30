@@ -1,3 +1,4 @@
+## Zakat App
 Étapes d’installation du projet Awkaf
 1️1 Installer les outils nécessaires
 anass
